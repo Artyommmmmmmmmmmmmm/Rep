@@ -8,7 +8,6 @@ from .models import New, Article
 @receiver(post_save, sender=New)
 def New_created(instance, created, **kwargs):
     if not created:
-        print('adadadadadadad')
         return
 
     emails = User.objects.filter(
@@ -36,7 +35,6 @@ def New_created(instance, created, **kwargs):
 @receiver(post_save, sender=Article)
 def Article_created(instance, created, **kwargs):
     if not created:
-        print('adadadadadadad')
         return
 
     emails = User.objects.filter(

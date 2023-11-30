@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Exists, OuterRef
 from django.shortcuts import render
 
+from django.views import View
+from .tasks import hello, printer
 class NewsList(ListView):
     # Указываем модель, объекты которой мы будем выводить
     model = New
@@ -285,3 +287,11 @@ def subscriptions(request):
         'subscriptions.html',
         {'categories': categories_with_subscriptions},
     )
+
+
+
+class IndexView(View):
+    def get(self, request):
+        hello.delay()
+        printer.delay(10)
+        return HttpResponse('Hello!')
